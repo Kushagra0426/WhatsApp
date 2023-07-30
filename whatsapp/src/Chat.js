@@ -1,7 +1,8 @@
 import React from 'react'
 import "./Chat.css";
 import { Avatar, IconButton } from '@mui/material';
-import { AttachFile, MoreVert, SearchOutlined } from "@mui/icons-material"
+import { AttachFile, Mic, MoreVert, SearchOutlined } from "@mui/icons-material"
+import InsertEmoticonIcon from '@mui/icons-material/InsertEmoticon';
 function Chat() {
   return (
     <div className='chat'>
@@ -23,6 +24,32 @@ function Chat() {
                 <MoreVert />
             </IconButton>
         </div>
+      </div>
+
+      <div className="chatBody">
+        <p className="chatMessage">
+          <span className="chatName">Kushagra</span>
+          This is a message.
+          <span className="chatTimeStamp">{new Date().toUTCString()}</span>
+        </p>
+        <p className="chatMessage chatReceiver">
+          <span className="chatName">Kushagra</span>
+          This is a message.
+          <span className="chatTimeStamp">{new Date().toUTCString()}</span>
+        </p>
+      </div>
+
+      <div className="chatFooter">
+        <IconButton>
+          <InsertEmoticonIcon />
+        </IconButton>
+        <form>
+          <input placeholder="Type a message" type="text" />
+          <button type="submit">Send a message</button>
+        </form>
+        <IconButton>
+          <Mic />
+        </IconButton>
       </div>
     </div>
   )
