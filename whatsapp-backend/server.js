@@ -15,9 +15,9 @@ import { timeStamp } from 'console'
 const app = express() //Imported application instance
 const port = process.env.PORT || 9000 //Setting up the port for app to run
 const pusher = new Pusher({
-    appId: "1646001",
-    key: "7bf400cc1fd27550a6db",
-    secret: "6733d65d6bf7e2cb3046",
+    appId: "YOUR_PUSHER_API_ID_HERE",
+    key: "YOUR_PUSHER_KEY_HERE",
+    secret: "YOUR_PUSHER_SECRET_HERE",
     cluster: "ap2",
     useTLS: true
   });
@@ -58,7 +58,8 @@ db.once('open',()=>{
             {
                 name: messageDetails.name,
                 message: messageDetails.message,
-                timeStamp: messageDetails.timeStamp
+                timeStamp: messageDetails.timeStamp,
+                received: messageDetails.received
             });
         }
         else{

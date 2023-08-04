@@ -15,15 +15,19 @@ function App() {
   } ,[]);
 
   useEffect(() => {
-    const pusher = new Pusher('7bf400cc1fd27550a6db', {
+    const pusher = new Pusher('YOUR_PUSHER_KEY_HERE', {
       cluster: 'ap2'
     });
 
     const channel = pusher.subscribe('messages');
     channel.bind('inserted', (newMessages) => {
-      alert(JSON.stringify(newMessages));
       setMessages([...messages, newMessages])
     });
+
+    return () => {
+      channel.unbind_all();
+      channel.unsubscribe();
+    };
   }, [messages]);
 
   console.log(messages);
@@ -32,7 +36,7 @@ function App() {
     <div className="app">
       <div className="appBody">
         <Sidebar />
-        <Chat />
+        <Chat messages={messages} />
       </div>
     </div>
   );
