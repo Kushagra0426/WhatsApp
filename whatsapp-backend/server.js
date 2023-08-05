@@ -15,9 +15,9 @@ import { timeStamp } from 'console'
 const app = express() //Imported application instance
 const port = process.env.PORT || 9000 //Setting up the port for app to run
 const pusher = new Pusher({
-    appId: "YOUR_PUSHER_API_ID_HERE",
+    appId: "YOUR_PUSHER_APP_ID_HERE",
     key: "YOUR_PUSHER_KEY_HERE",
-    secret: "YOUR_PUSHER_SECRET_HERE",
+    secret: "YOUR_SECRET_KEY_HERE",
     cluster: "ap2",
     useTLS: true
   });
