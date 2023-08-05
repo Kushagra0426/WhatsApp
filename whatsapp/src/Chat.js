@@ -8,12 +8,15 @@ import axios from "./axios";
 function Chat({messages}) {
   const [input, setInput] = useState("");
 
+  const currentTime = new Date();
+  const formattedTime = currentTime.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+
   const sendMessage = async (e) => {
     e.preventDefault();
     await axios.post('/messages/new',{
       message: input,
       name: "DEMO APP",
-      timeStamp: "Just now!",
+      timeStamp: formattedTime,
       received: false
     });
 
@@ -25,7 +28,7 @@ function Chat({messages}) {
         <Avatar />
         <div className="chatHeaderInfo">
             <h3>Room Name</h3>
-            <p>Last seen at...</p>
+            <p>Last seen at {formattedTime}</p>
         </div>
 
         <div className="chatHeaderRight">
