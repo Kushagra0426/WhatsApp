@@ -1,9 +1,24 @@
-import React from 'react'
+import React, { useState } from 'react'
 import "./Chat.css";
 import { Avatar, IconButton } from '@mui/material';
 import { AttachFile, Mic, MoreVert, SearchOutlined } from "@mui/icons-material"
 import InsertEmoticonIcon from '@mui/icons-material/InsertEmoticon';
-function Chat() {
+import axios from "./axios";
+
+function Chat({messages}) {
+  const [input, setInput] = useState("");
+
+  const sendMessage = async (e) => {
+    e.preventDefault();
+    await axios.post('/messages/new',{
+      message: input,
+      name: "DEMO APP",
+      timeStamp: "Just now!",
+      received: false
+    });
+
+    setInput("");
+  };
   return (
     <div className='chat'>
       <div className="chatHeader">
@@ -27,16 +42,13 @@ function Chat() {
       </div>
 
       <div className="chatBody">
-        <p className="chatMessage">
-          <span className="chatName">Kushagra</span>
-          This is a message.
-          <span className="chatTimeStamp">{new Date().toUTCString()}</span>
-        </p>
-        <p className="chatMessage chatReceiver">
-          <span className="chatName">Kushagra</span>
-          This is a message.
-          <span className="chatTimeStamp">{new Date().toUTCString()}</span>
-        </p>
+        {messages.map((message) => (
+          <p className={`chatMessage ${message.received === false && "chatReceiver"}`}>
+            <span className="chatName">{message.name}</span>
+            {message.message}
+            <span className="chatTimeStamp">{message.timeStamp}</span>
+          </p>
+        ))}
       </div>
 
       <div className="chatFooter">
@@ -44,8 +56,8 @@ function Chat() {
           <InsertEmoticonIcon />
         </IconButton>
         <form>
-          <input placeholder="Type a message" type="text" />
-          <button type="submit">Send a message</button>
+          <input value={input} onChange={(e) => setInput(e.target.value)} placeholder="Type a message" type="text" />
+          <button onClick={sendMessage} type="submit">Send a message</button>
         </form>
         <IconButton>
           <Mic />
